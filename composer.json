@@ -1,0 +1,22 @@
+{
+    "name": "module-wechat/oauth",
+    "description": "a simple wechat oauth for php",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0",
+        "module-wechat/common": "^1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ModuleWechat\\Oauth\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kyle",
+            "email": "1399860604@qq.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
