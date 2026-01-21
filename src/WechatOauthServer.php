@@ -3,20 +3,16 @@ declare(strict_types=1);
 
 namespace ModuleWechat\Oauth;
 
-use ModuleWechat\Common\Config\ConfigUtil;
-use ModuleWechat\Common\Config\Request;
 use ModuleWechat\Common\Helper\MpOauthInterface;
 use ModuleWechat\Common\Server;
 use ModuleWechat\Common\WechatServer;
 
 class WechatOauthServer implements MpOauthInterface
 {
-    protected ConfigUtil $config;
-    protected Request $http;
+    protected WechatServer $server;
     public function __construct(WechatServer $server)
     {
-        $this->config = $server->config;
-        $this->http = $server->http;
+        $this->server = $server;
     }
 
     /**
@@ -28,7 +24,7 @@ class WechatOauthServer implements MpOauthInterface
      */
     public function getAuthUrl($redirect_uri, $scope = 'snsapi_base', $state = 'STATE')
     {
-        $appid = $this->config->getAppid();
+        $appid = $this->server->config->getAppid();
         return sprintf('https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect',$appid,$redirect_uri,$scope,$state);
     }
 
@@ -39,9 +35,9 @@ class WechatOauthServer implements MpOauthInterface
      */
     public function getOauthToken($code)
     {
-        return $this->http->request('sns/oauth2/access_token',[
-            'appid' => $this->config->getAppid(),
-            'secret' => $this->config->getSecret(),
+        return $this->server->http->request('sns/oauth2/access_token',[
+            'appid' => $this->server->config->getAppid(),
+            'secret' => $this->server->config->getSecret(),
             'code' => $code,
             'grant_type' => 'authorization_code'
         ]);
@@ -55,7 +51,7 @@ class WechatOauthServer implements MpOauthInterface
      */
     public function getUserInfo($openid, $access_token)
     {
-        return $this->http->request('sns/userinfo',[
+        return $this->server->http->request('sns/userinfo',[
             'access_token' => $access_token,
             'openid' => $openid
         ]);
@@ -75,7 +71,7 @@ class WechatOauthServer implements MpOauthInterface
         $str = sprintf('jsapi_ticket=%s&noncestr=%s&timestamp=%s&url=%s',$ticket,$nonce,$time,$url);
         return [
             'nonceStr' => $nonce,
-            'appId' => $this->config->getAppid(),
+            'appId' => $this->server->config->getAppid(),
             'timestamp' => $time,
             'signature' => sha1($str),
             'url' => $url
