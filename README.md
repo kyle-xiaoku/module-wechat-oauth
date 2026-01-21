@@ -73,7 +73,7 @@ $wechatServer->getAccessToken();
 }
 
 // 获取jssdk的临时票据 ticket
-$wechatServer->mp->getTicket('access_token');
+$wechatServer->getTicket('access_token');
 // 返回示例
 {
   "ticket": "ticket",
