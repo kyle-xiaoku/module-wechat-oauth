@@ -25,11 +25,14 @@ composer require module-wechat/oauth
 require 'vendor/autoload.php';
 use ModuleWechat\Oauth\WechatOauthServer;
 
-// .env 中配置appid和secret
+// 第一种 .env 中配置appid和secret
 WECHAT_APPID=appid
 WECHAT_SECRET=secret
 
 $wechat = new WechatOauthServer();
+
+// 第二种 参数传递
+$wechat = new WechatOauthServer('appid','secret');
 
 // 获取收取url scope 默认 snsapi_base
 $wechat->getAuthUrl('redirect_uri','scope');

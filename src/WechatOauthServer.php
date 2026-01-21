@@ -7,6 +7,11 @@ use ModuleWechat\Common\Server;
 
 class WechatOauthServer extends Server
 {
+    public function __construct(string $appid = '', string $secret = '')
+    {
+        parent::__construct($appid,$secret);
+    }
+
     /**
      * 获取授权跳转地址
      * @param $redirect_uri
