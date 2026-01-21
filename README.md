@@ -23,22 +23,22 @@ composer require module-wechat/oauth
 <?php
 
 require 'vendor/autoload.php';
-use ModuleWechat\Oauth\WechatOauthServer;
+use ModuleWechat\Common\WechatServer;
 
 // 第一种 .env 中配置appid和secret
 WECHAT_APPID=appid
 WECHAT_SECRET=secret
 
-$wechat = new WechatOauthServer();
+$wechatServer = new WechatServer();
 
 // 第二种 参数传递
-$wechat = new WechatOauthServer('appid','secret');
+$wechatServer = new WechatServer('appid','secret');
 
 // 获取收取url scope 默认 snsapi_base
-$wechat->getAuthUrl('redirect_uri','scope');
+$wechatServer->mp->getAuthUrl('redirect_uri','scope');
 
 // 获取授权access_token
-$wechat->getOauthToken('code');
+$wechatServer->mp->getOauthToken('code');
 // 返回示例
 {
   "access_token": "ACCESS_TOKEN",
@@ -50,7 +50,7 @@ $wechat->getOauthToken('code');
 }
 
 // 获取用户信息
-$wechat->getUserInfo('openid','access_token');
+$wechatServer->mp->getUserInfo('openid','access_token');
 // 返回示例
 {   
   "openid": "OPENID",
@@ -65,7 +65,7 @@ $wechat->getUserInfo('openid','access_token');
 }
 
 // 获取基础access_token
-$wechat->getAccessToken();
+$wechatServer->getAccessToken();
 // 返回示例
 {
   "access_token": "ACCESS_TOKEN",
@@ -73,7 +73,7 @@ $wechat->getAccessToken();
 }
 
 // 获取jssdk的临时票据 ticket
-$wechat->getTicket('access_token');
+$wechatServer->mp->getTicket('access_token');
 // 返回示例
 {
   "ticket": "ticket",
@@ -83,7 +83,7 @@ $wechat->getTicket('access_token');
 }
 
 // 获取jssdk的配置
-$wechat->getJssdk('url','ticket');
+$wechatServer->mp->getJssdk('url','ticket');
 // 返回示例
 {
   "nonceStr": "nonceStr",

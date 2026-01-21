@@ -3,13 +3,20 @@ declare(strict_types=1);
 
 namespace ModuleWechat\Oauth;
 
+use ModuleWechat\Common\Config\ConfigUtil;
+use ModuleWechat\Common\Config\Request;
+use ModuleWechat\Common\Helper\MpOauthInterface;
 use ModuleWechat\Common\Server;
+use ModuleWechat\Common\WechatServer;
 
-class WechatOauthServer extends Server
+class WechatOauthServer implements MpOauthInterface
 {
-    public function __construct(string $appid = '', string $secret = '')
+    protected ConfigUtil $config;
+    protected Request $http;
+    public function __construct(WechatServer $server)
     {
-        parent::__construct($appid,$secret);
+        $this->config = $server->config;
+        $this->http = $server->http;
     }
 
     /**
