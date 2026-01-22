@@ -34,11 +34,11 @@ $wechatServer = new WechatServer();
 // 第二种 参数传递
 $wechatServer = new WechatServer('appid','secret');
 
-// 获取收取url scope 默认 snsapi_base
-$wechatServer->mp->getAuthUrl('redirect_uri','scope');
+// 获取跳转授权url scope 默认 snsapi_base
+$wechatServer->oauth->getAuthUrl('redirect_uri','scope');
 
 // 获取授权access_token
-$wechatServer->mp->getOauthToken('code');
+$wechatServer->oauth->getOauthToken('code');
 // 返回示例
 {
   "access_token": "ACCESS_TOKEN",
@@ -50,7 +50,7 @@ $wechatServer->mp->getOauthToken('code');
 }
 
 // 获取用户信息
-$wechatServer->mp->getUserInfo('openid','access_token');
+$wechatServer->oauth->getUserInfo('openid','access_token');
 // 返回示例
 {   
   "openid": "OPENID",
@@ -83,7 +83,7 @@ $wechatServer->getTicket('access_token');
 }
 
 // 获取jssdk的配置
-$wechatServer->mp->getJssdk('url','ticket');
+$wechatServer->oauth->getJssdk('url','ticket');
 // 返回示例
 {
   "nonceStr": "nonceStr",
